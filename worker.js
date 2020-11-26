@@ -10,7 +10,7 @@ addEventListener("fetch", (event) => {
 async function handleRequest(request) {
   const apiKey = 'API KEY HERE'
   const { pathname, search } = new URL(request.url);
-  const queryParams = search.replace("?", "").split("&").filter(param => param.includes('api_key'))
+  const queryParams = search.replace("?", "").split("&").filter(param => !param.includes('api_key'))
   const queryParamsWithKey = [...queryParams, `api_key=${apiKey}`]
   const [_, type, ...rest] = pathname.split("/");
   if (type === "tmdb") {
