@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { tmdb } from "@api";
 import { TrackableType } from "@types";
+import { useData } from "@hooks/useData";
 
 interface Props {
   type: TrackableType;
@@ -8,8 +8,10 @@ interface Props {
 }
 
 export const Details = ({ type, id }: Props) => {
+  const { getData } = useData();
   const [data, setData] = useState(undefined);
 
-  tmdb.tv.getById(parseInt(id, 10)).then((s) => setData(s));
+  getData(type, id).then((d) => setData(d));
+
   return <>{data && data.name}</>;
 };

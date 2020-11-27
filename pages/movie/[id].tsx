@@ -7,5 +7,5 @@ export default function ShowDetails() {
   const router = useRouter();
   const { id } = router.query;
 
-  return <Details type={TrackableType.Movie} id={id} />;
+  return <Details type={TrackableType.Movie} id={id as string} />;
 }

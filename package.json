@@ -8,14 +8,17 @@
     "start": "next start"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "1.4.0",
     "next": "10.0.3",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "react-redux": "7.2.2",
     "themoviedb-typescript": "FrederikBolding/themoviedb#3d2c9522fef68305887585ad21c6dd198c2cb987"
   },
   "devDependencies": {
     "@types/node": "^14.14.10",
     "@types/react": "^17.0.0",
+    "@types/react-redux": "7.1.11",
     "typescript": "^4.1.2"
   }
 }
