@@ -5,7 +5,8 @@ import { create, update, remove, INITIAL_STATE, CacheState } from "./cache";
 export const reducer = createReducer<CacheState>(INITIAL_STATE, (builder) =>
   builder
     .addCase(create, (state, action) => {
-      return [...state, action.payload];
+      const { data, type } = action.payload;
+      return {...state, [type]: [...state[type], data]};
     })
     .addCase(update, (state, action) => {
       const idx = state.findIndex(

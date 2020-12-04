@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TrackableType } from "@types";
 import { useData } from "@hooks/useData";
 import { useRouter } from "next/router";
@@ -15,7 +15,7 @@ export const Details = ({ type }: Props) => {
   const { getData } = useData();
   const [data, setData] = useState(undefined);
 
-  getData(type, id as string).then((d) => setData(d));
+  useEffect(() => getData(type, id as string).then((d) => setData(d)), [id, type]);
 
   return <>{data && data.name}</>;
 };
