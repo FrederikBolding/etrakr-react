@@ -5,5 +5,7 @@ export interface TrackableData {
     id: string;
     name: string;
     description: string;
+    genres: string[];
     runtime?: number;
+    poster: string;
 }
