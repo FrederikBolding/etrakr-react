@@ -9,7 +9,7 @@ const getData = async (id: string) => {
 };
 
 const transform = (show: Show) => ({
-  type: TrackableType.Show,
+  type: TrackableType.Tv,
   id: show.id.toString(),
   name: show.name,
   description: show.overview,
@@ -19,13 +19,13 @@ const transform = (show: Show) => ({
 });
 
 const transformSearch = (show: TVListResult) => ({
-  type: TrackableType.Show,
+  type: TrackableType.Tv,
   id: show.id.toString(),
   name: show.name
 });
 
-export const show: TrackableSource = {
-  type: TrackableType.Show,
+export const tv: TrackableSource = {
+  type: TrackableType.Tv,
   getData,
   transform,
   transformSearch

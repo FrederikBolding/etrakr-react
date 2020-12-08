@@ -1,10 +1,10 @@
 import { TrackableSource, TrackableType } from "@types";
 import { movie } from "./movie";
-import { show } from "./show";
+import { tv } from "./tv";
 import { tmdb } from "./tmdb";
 
 const sources: Record<TrackableType, TrackableSource> = {
-  [TrackableType.Show]: show,
+  [TrackableType.Tv]: tv,
   [TrackableType.Movie]: movie,
 };
 

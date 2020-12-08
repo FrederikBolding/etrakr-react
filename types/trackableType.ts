@@ -1,4 +1,4 @@
 export enum TrackableType {
-    Show = 'show', Movie = 'movie'
+    Tv = 'tv', Movie = 'movie'
     //@todo Podcast = 'podcast'
 }
