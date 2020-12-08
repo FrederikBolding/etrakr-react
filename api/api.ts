@@ -13,7 +13,15 @@ export const getTrackableSource = (type: TrackableType) => {
 };
 
 export const search = async (query: string) => {
-  const results = await tmdb.search.getMulti({ query })
-  // @todo transform
-  return results.results; 
-}
+  const results = await tmdb.search.getMulti({ query });
+  return (
+    results.results
+      // @ts-expect-error media_type is present on these types
+      .filter((r) => Object.values(TrackableType).includes(r.media_type))
+
+      .map((r) =>
+        // @ts-expect-error media_type is present on these types
+        getTrackableSource(r.media_type as TrackableType).transformSearch(r)
+      )
+  );
+};

@@ -2,10 +2,11 @@ import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import React from "react";
 import { DarkModeToggle } from "./DarkModeToggle";
 import { SearchBar } from "./SearchBar";
+import Link from "next/link";
 
-const MenuItems = ({ children }) => (
+const MenuItems = ({ children, href }) => (
   <Text mt={{ base: 4, md: 0 }} mr={6} display="block">
-    {children}
+    <Link href={href}>{children}</Link>
   </Text>
 );
 
@@ -45,8 +46,8 @@ export const Header = () => {
         alignItems="center"
         flexGrow={1}
       >
-        <MenuItems>Dashboard</MenuItems>
-        <MenuItems>Stats</MenuItems>
+        <MenuItems href="/dashboard">Dashboard</MenuItems>
+        <MenuItems href="/stats">Stats</MenuItems>
         <Box
           display={{ md: "flex" }}
           position={{ base: "relative", md: "absolute" }}

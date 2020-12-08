@@ -1,4 +1,5 @@
 import { TrackableSource, TrackableType } from "@types";
+import { MovieListResult } from "themoviedb-typescript/build/src/interfaces/generic";
 import { Movie } from "themoviedb-typescript/build/src/interfaces/movies";
 import { tmdb } from "./tmdb";
 
@@ -18,8 +19,15 @@ const transform = (movie: Movie) => ({
   runtime: movie.runtime
 });
 
+const transformSearch = (movie: MovieListResult) => ({
+  type: TrackableType.Movie,
+  id: movie.id.toString(),
+  name: movie.title
+});
+
 export const movie: TrackableSource = {
   type: TrackableType.Movie,
   getData,
-  transform
+  transform,
+  transformSearch
 };

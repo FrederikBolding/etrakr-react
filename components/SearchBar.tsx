@@ -16,15 +16,21 @@ import {
   Text,
   Badge,
 } from "@chakra-ui/react";
+import { TrackableData, SearchResult } from "@types";
+import { buildRoute } from "@utils";
+import debounce from "lodash/debounce";
+import Link from "next/link";
 import React, { useState } from "react";
 
 export const SearchBar = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [results, setResults] = useState(undefined);
+  const [results, setResults] = useState<SearchResult[] | undefined>(undefined);
 
   // @todo debounce
-  const handleSearch = (event) =>
-    search(event.target.value).then((r) => setResults(r));
+  const handleSearch = debounce(
+    (event) => search(event.target.value).then((r) => setResults(r)),
+    400
+  );
 
   return (
     <>
@@ -52,8 +58,12 @@ export const SearchBar = (props) => {
           {results && (
             <>
               {results.map((r) => (
-                <Box p={1} _hover={{ bg: 'blue.700', cursor: 'pointer' }}>
-                  <Text>{r.title || r.name}{' '}<Badge>TYPE</Badge></Text>
+                <Box p={1} _hover={{ bg: "blue.700", cursor: "pointer" }}>
+                  <Link href={buildRoute(r.type, r.id)}>
+                    <Text>
+                      {r.name} <Badge>{r.type}</Badge>
+                    </Text>
+                  </Link>
                 </Box>
               ))}
             </>
