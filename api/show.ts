@@ -13,7 +13,8 @@ const transform = (show: Show) => ({
   name: show.name,
   description: show.overview,
   genres: show.genres.map(g => g.name),
-  poster: `https://image.tmdb.org/t/p/w300/${show.poster_path}` 
+  poster: `https://image.tmdb.org/t/p/w300/${show.poster_path}`,
+  runtime: show.episode_run_time[0]
 });
 
 export const show: TrackableSource = {
