@@ -8,4 +8,16 @@ export interface TrackableData {
     genres: string[];
     runtime?: number;
     poster: string;
+    seasons?: SeasonData[];
+}
+
+export interface SeasonData {
+    name: string;
+    description: string;
+    episodes: EpisodeData[];
+}
+
+export interface EpisodeData {
+    name: string;
+    description: string;
 }
