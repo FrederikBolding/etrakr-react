@@ -9,7 +9,7 @@ export function useData() {
   const dispatch = useDispatch();
 
   const getDataFromCache = (type: TrackableType, id: string) =>
-    cache[type].find((c) => c.type === type && c.id === id);
+    cache[type].find((c) => c.id == id);
 
   const getData = async (type: TrackableType, id: string) => {
     const cached = getDataFromCache(type, id);

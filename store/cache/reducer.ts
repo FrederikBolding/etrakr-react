@@ -6,17 +6,16 @@ export const reducer = createReducer<CacheState>(INITIAL_STATE, (builder) =>
   builder
     .addCase(create, (state, action) => {
       const { data, type } = action.payload;
-      return {...state, [type]: [...state[type], data]};
+      return { ...state, [type]: [...state[type], { ...data, lastUpdated: new Date().toString()} ] };
     })
     .addCase(update, (state, action) => {
-      const idx = state.findIndex(
-        (cache) =>
-          cache.type === action.payload.type && cache.id === action.payload.id
-      );
-      state[idx] = action.payload;
+      const { type, data } = action.payload;
+      const idx = state[type].findIndex((cache) => cache.id === data.id);
+      state[type][idx] = { ...action.payload.data, lastUpdated: new Date().toString() };
     })
-    .addCase(remove, (state) => {
-      const [, ...rest] = state;
-      return rest;
+    .addCase(remove, (state, action) => {
+      const { type, id } = action.payload;
+      const idx = state[type].findIndex((cache) => cache.id === id);
+      state[type].splice(idx, 1)
     })
 );

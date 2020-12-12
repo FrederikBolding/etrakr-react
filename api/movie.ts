@@ -1,14 +1,15 @@
-import { TrackableSource, TrackableType } from "@types";
+import { AsyncReturnType, TrackableSource, TrackableType } from "@types";
 import { MovieListResult } from "themoviedb-typescript/build/src/interfaces/generic";
-import { Movie } from "themoviedb-typescript/build/src/interfaces/movies";
 import { tmdb } from "./tmdb";
 
 const getData = async (id: string) => {
   const movie = await tmdb.movies.getById(id);
-  return movie;
+  return { ...movie, id };
 };
 
-const transform = (movie: Movie) => ({
+export type RawDataType = AsyncReturnType<typeof getData>;
+
+const transform = (movie: RawDataType) => ({
   type: TrackableType.Movie,
   id: movie.id.toString(),
   // @ts-expect-error This does exist, the type is wrong

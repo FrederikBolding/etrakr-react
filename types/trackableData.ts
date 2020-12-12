@@ -20,4 +20,5 @@ export interface SeasonData {
 export interface EpisodeData {
     name: string;
     description: string;
+    airDate?: string;
 }

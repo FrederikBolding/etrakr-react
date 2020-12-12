@@ -1,12 +1,14 @@
 import { TrackableSource, TrackableType } from "@types";
-import { movie } from "./movie";
-import { tv } from "./tv";
+import { movie, RawDataType as RawMovieDataType } from "./movie";
+import { tv, RawDataType as RawTvDataType } from "./tv";
 import { tmdb } from "./tmdb";
 
 const sources: Record<TrackableType, TrackableSource> = {
   [TrackableType.Tv]: tv,
   [TrackableType.Movie]: movie,
 };
+
+export type DataType = RawTvDataType | RawMovieDataType
 
 export const getTrackableSource = (type: TrackableType) => {
   return sources[type];

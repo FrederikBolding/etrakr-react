@@ -4,7 +4,7 @@ import { TrackableType } from "./trackableType";
 
 export interface TrackableSource {
     type: TrackableType;
-    getData: (id: string) => Promise<TrackableData>
+    getData: (id: string) => Promise<any>
     transform: (data) => TrackableData,
     transformSearch: (data) => SearchResult
 }

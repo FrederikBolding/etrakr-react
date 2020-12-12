@@ -1,16 +1,18 @@
-import { TrackableSource, TrackableType } from "@types";
+import { AsyncReturnType, TrackableData, TrackableSource, TrackableType } from "@types";
 import { mapAsync } from "@utils";
 import { TVListResult } from "themoviedb-typescript/build/src/interfaces/generic";
-import { Show } from "themoviedb-typescript/build/src/interfaces/tv";
+import { SeasonWithEpisodes, Show } from "themoviedb-typescript/build/src/interfaces/tv";
 import { tmdb } from "./tmdb";
 
 const getData = async (id: string) => {
   const tv = await tmdb.tv.getById(id);
-  const seasons = await mapAsync(tv.seasons, (season) => tmdb.tvSeasons.getById(id, season.season_number))
-  return { ...tv, seasons };
+  const seasons: SeasonWithEpisodes[] = await mapAsync(tv.seasons, (season) => tmdb.tvSeasons.getById(id, season.season_number))
+  return { ...tv, id, seasons };
 };
 
-const transform = (show: Show) => ({
+export type RawDataType = AsyncReturnType<typeof getData>;
+
+const transform = (show: RawDataType): TrackableData => ({
   type: TrackableType.Tv,
   id: show.id.toString(),
   name: show.name,
