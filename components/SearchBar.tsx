@@ -20,11 +20,13 @@ import { TrackableData, SearchResult } from "@types";
 import { buildRoute } from "@utils";
 import debounce from "lodash/debounce";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
 export const SearchBar = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [results, setResults] = useState<SearchResult[] | undefined>(undefined);
+  const router = useRouter()
 
   const handleSearch = debounce(
     (event) => search(event.target.value).then((r) => setResults(r)),
@@ -32,6 +34,7 @@ export const SearchBar = (props) => {
   );
 
   useEffect(() => isOpen && setResults(undefined), [isOpen]);
+  useEffect(() => isOpen && onClose(), [router.asPath])
 
   return (
     <>
