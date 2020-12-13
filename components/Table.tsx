@@ -9,14 +9,18 @@ import {
   Td,
   TableCaption,
   TableCellProps,
+  Center,
 } from "@chakra-ui/react";
 
-type ChakraColumn = Column & TableCellProps;
+type ChakraColumn = Column & TableCellProps & { center?: boolean };
 
 interface Props {
   columns: ChakraColumn[];
   data: any;
 }
+
+const ConditionalCenter = ({ children, center }) =>
+  center ? <Center>{children}</Center> : children;
 
 export const TableComponent = ({ columns, data }: Props) => {
   const {
@@ -32,8 +36,12 @@ export const TableComponent = ({ columns, data }: Props) => {
       <Thead>
         {headerGroups.map((headerGroup) => (
           <Tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => (
-              <Th {...column.getHeaderProps()}>{column.render("Header")}</Th>
+            {headerGroup.headers.map((column: ChakraColumn) => (
+              <Th {...column.getHeaderProps()}>
+                <ConditionalCenter center={column.center}>
+                  {column.render("Header")}
+                </ConditionalCenter>
+              </Th>
             ))}
           </Tr>
         ))}
@@ -48,7 +56,9 @@ export const TableComponent = ({ columns, data }: Props) => {
                   {...cell.getCellProps()}
                   isNumeric={(cell.column as ChakraColumn).isNumeric}
                 >
-                  {cell.render("Cell")}
+                  <ConditionalCenter center={cell.column.center}>
+                    {cell.render("Cell")}
+                  </ConditionalCenter>
                 </Td>
               ))}
             </Tr>

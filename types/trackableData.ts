@@ -12,12 +12,15 @@ export interface TrackableData {
 }
 
 export interface SeasonData {
+    season: number;
     name: string;
     description: string;
     episodes: EpisodeData[];
 }
 
 export interface EpisodeData {
+    episode: number;
+    season: number;
     name: string;
     description: string;
     airDate?: string;
