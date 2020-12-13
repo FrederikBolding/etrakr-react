@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.0.1",
-    "@chakra-ui/react": "^1.0.2",
+    "@chakra-ui/react": "^1.0.3",
     "@emotion/react": "^11.1.2",
     "@emotion/styled": "^11.0.0",
     "@reduxjs/toolkit": "1.4.0",
@@ -19,6 +19,7 @@
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-redux": "7.2.2",
+    "react-table": "^7.6.2",
     "redux-persist": "^6.0.0",
     "themoviedb-typescript": "FrederikBolding/themoviedb#3d2c9522fef68305887585ad21c6dd198c2cb987"
   },
