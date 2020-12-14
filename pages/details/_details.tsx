@@ -20,12 +20,11 @@ import { FavoriteToggle } from "@components/FavoriteToggle";
 
 interface Props {
   type: TrackableType;
-  id: string;
 }
 
 export const Details = ({ type }: Props) => {
   const router = useRouter();
-  const { id } = router.query;
+  const id = router.query.id as string;
 
   const { getData } = useData();
   const [data, setData] = useState(undefined);

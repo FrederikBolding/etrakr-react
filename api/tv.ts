@@ -16,9 +16,10 @@ import {
 import { tmdb } from "./tmdb";
 
 const getData = async (id: string) => {
-  const tv = await tmdb.tv.getById(id);
+  const parsedId = parseInt(id, 10);
+  const tv = await tmdb.tv.getById(parsedId);
   const seasons: SeasonWithEpisodes[] = await mapAsync(tv.seasons, (season) =>
-    tmdb.tvSeasons.getById(id, season.season_number)
+    tmdb.tvSeasons.getById(parsedId, season.season_number)
   );
   return { ...tv, id, seasons };
 };
