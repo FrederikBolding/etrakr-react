@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { TrackableType } from "@types";
 import { useData } from "@hooks/useData";
 import { useRouter } from "next/router";
-import { Loading, EpisodeTable } from "@components";
+import { Loading, EpisodeTable, DashboardToggle } from "@components";
 import {
   Box,
   Button,
@@ -16,6 +16,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
+import { FavoriteToggle } from "@components/FavoriteToggle";
 
 interface Props {
   type: TrackableType;
@@ -45,8 +46,8 @@ export const Details = ({ type }: Props) => {
               <Text>{data.runtime || "?"} min</Text>
             </Box>
             <Box textAlign="center">
-              <Button mr={1}>Add to Dashboard</Button>
-              <Button>Add to Favorites</Button>
+              <DashboardToggle type={type} id={id} mr={1} />
+              <FavoriteToggle type={type} id={id} />
             </Box>
             <Box>
               <Heading textAlign="center" as="h2" size="md">
