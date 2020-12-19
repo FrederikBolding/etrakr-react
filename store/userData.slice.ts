@@ -97,10 +97,13 @@ export const { setDashboardState, setFavorite, setWatched, setSkipped } = slice.
 
 export default slice;
 
+export const getTrackablesOfType = (type: TrackableType) => createSelector((state: ApplicationState) => state.userData[type], s => s)
+export const getOnDashboard = (type: TrackableType) => createSelector(getTrackablesOfType(type), s => s.filter(t => isOnDashboard(type, t.id)))
+export const getFavorites = (type: TrackableType) => createSelector(getTrackablesOfType(type), s => s.filter(t => isFavorite(type, t.id)))
 export const getTrackable = (type: TrackableType, id: string) =>
   createSelector(
-    (state: ApplicationState) => state.userData[type].find((u) => u.id === id),
-    (s) => (s))
+    getTrackablesOfType(type),
+    (s) => (s.find((u) => u.id === id)))
 export const isOnDashboard = (type: TrackableType, id: string) =>
   createSelector(
     getTrackable(type, id),
@@ -111,11 +114,11 @@ export const isFavorite = (type: TrackableType, id: string) =>
     getTrackable(type, id),
     (s) => (s ? s.favorite : false)
   );
-export const IsEpisodeWatched = (type: TrackableType, id: string, episode: string) => createSelector(
+export const isEpisodeWatched = (type: TrackableType, id: string, episode: string) => createSelector(
   getTrackable(type, id),
   (s) => s && s.watched.includes(episode)
 );
-export const IsEpisodeSkipped = (type: TrackableType, id: string, episode: string) => createSelector(
+export const isEpisodeSkipped = (type: TrackableType, id: string, episode: string) => createSelector(
   getTrackable(type, id),
   (s) => s && s.skipped.includes(episode)
 );

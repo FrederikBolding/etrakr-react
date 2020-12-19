@@ -1,6 +1,6 @@
 import { Button, ButtonProps, Checkbox } from "@chakra-ui/react";
 import {
-  IsEpisodeWatched as IsEpisodeWatched,
+  isEpisodeWatched,
   setWatched,
   useDispatch,
   useSelector,
@@ -17,7 +17,7 @@ export const WatchedCheckbox = ({
   episode: string;
 }) => {
   const dispatch = useDispatch();
-  const isWatched: boolean = useSelector(IsEpisodeWatched(type, id, episode));
+  const isWatched: boolean = useSelector(isEpisodeWatched(type, id, episode));
   const handleChange = () => {
     dispatch(setWatched({ type, id, episode, watched: !isWatched }));
   };
