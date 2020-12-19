@@ -36,9 +36,9 @@ export const TableComponent = ({ columns, data }: Props) => {
       <Thead>
         {headerGroups.map((headerGroup) => (
           <Tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column: ChakraColumn) => (
+            {headerGroup.headers.map((column) => (
               <Th {...column.getHeaderProps()}>
-                <ConditionalCenter center={column.center}>
+                <ConditionalCenter center={(column as unknown as ChakraColumn).center}>
                   {column.render("Header")}
                 </ConditionalCenter>
               </Th>
