@@ -1,6 +1,4 @@
-import { Details } from "../details/_details";
-
-import { useRouter } from "next/router";
+import { Details } from "@components";
 import { TrackableType } from "@types";
 
 export default function MovieDetails() {

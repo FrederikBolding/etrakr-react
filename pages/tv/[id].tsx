@@ -1,5 +1,4 @@
-import { Details } from "../details/_details"
-
+import { Details } from "@components"
 import { TrackableType } from "@types"
 
 export default function TvDetails() {
