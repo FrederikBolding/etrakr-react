@@ -11,6 +11,17 @@ export const initialState: UserDataState = {
   [TrackableType.Movie]: [],
 };
 
+const defaultState = { favorite: false, dashboard: false, skipped: [], watched: [] }
+
+const findOrCreate = (state, type, id) => {
+  const idx = state[type].findIndex((t) => t.id === id);
+  if (idx === -1) {
+    state[type].push({ id, ...defaultState });
+    return state[type].length - 1;
+  }
+  return idx;
+}
+
 const slice = createSlice({
   name: "userData",
   initialState,
@@ -24,12 +35,8 @@ const slice = createSlice({
       }>
     ) {
       const { type, id, dashboard } = action.payload;
-      const idx = state[type].findIndex((t) => t.id === id);
-      if (idx === -1) {
-        state[type].push({ id, favorite: false, dashboard: dashboard });
-      } else {
-        state[type][idx].dashboard = dashboard;
-      }
+      const idx = findOrCreate(state, type, id)
+      state[type][idx].dashboard = dashboard;
     },
     setFavorite(
       state,
@@ -40,27 +47,75 @@ const slice = createSlice({
       }>
     ) {
       const { type, id, favorite } = action.payload;
-      const idx = state[type].findIndex((t) => t.id === id);
-      if (idx === -1) {
-        state[type].push({ id, favorite: favorite, dashboard: false });
-      } else {
-        state[type][idx].favorite = favorite;
+      const idx = findOrCreate(state, type, id)
+      state[type][idx].favorite = favorite;
+    },
+    setWatched(
+      state,
+      action: PayloadAction<{
+        type: TrackableType;
+        id: string;
+        episode: string;
+        watched: boolean;
+      }>
+    ) {
+      const { type, id, episode, watched } = action.payload;
+      const idx = findOrCreate(state, type, id)
+      const currentWatched = state[type][idx].watched;
+      const existingIdx = currentWatched.findIndex(e => e === episode)
+      if (watched && existingIdx === -1) {
+        console.log("pushing", episode)
+        state[type][idx].watched.push(episode)
+      } else if (existingIdx !== -1) {
+        console.log("splicing", episode)
+        state[type][idx].watched.splice(existingIdx)
+      }
+    },
+    setSkipped(
+      state,
+      action: PayloadAction<{
+        type: TrackableType;
+        id: string;
+        episode: string;
+        skipped: boolean;
+      }>
+    ) {
+      const { type, id, episode, skipped } = action.payload;
+      const idx = findOrCreate(state, type, id)
+      const currentSkipped = state[type][idx].skipped;
+      const existingIdx = currentSkipped.findIndex(e => e === episode)
+      if (skipped && existingIdx === -1) {
+        state[type][idx].skipped.push(episode)
+      } else if (existingIdx !== -1) {
+        state[type][idx].skipped.splice(existingIdx)
       }
     },
   },
 });
 
-export const { setDashboardState, setFavorite } = slice.actions;
+export const { setDashboardState, setFavorite, setWatched, setSkipped } = slice.actions;
 
 export default slice;
 
-export const isOnDashboard = (type: TrackableType, id: string) =>
+export const getTrackable = (type: TrackableType, id: string) =>
   createSelector(
     (state: ApplicationState) => state.userData[type].find((u) => u.id === id),
+    (s) => (s))
+export const isOnDashboard = (type: TrackableType, id: string) =>
+  createSelector(
+    getTrackable(type, id),
     (s) => (s ? s.dashboard : false)
   );
 export const isFavorite = (type: TrackableType, id: string) =>
   createSelector(
-    (state: ApplicationState) => state.userData[type].find((u) => u.id === id),
+    getTrackable(type, id),
     (s) => (s ? s.favorite : false)
   );
+export const IsEpisodeWatched = (type: TrackableType, id: string, episode: string) => createSelector(
+  getTrackable(type, id),
+  (s) => s && s.watched.includes(episode)
+);
+export const IsEpisodeSkipped = (type: TrackableType, id: string, episode: string) => createSelector(
+  getTrackable(type, id),
+  (s) => s && s.skipped.includes(episode)
+);

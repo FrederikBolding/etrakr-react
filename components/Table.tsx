@@ -56,7 +56,7 @@ export const TableComponent = ({ columns, data }: Props) => {
                   {...cell.getCellProps()}
                   isNumeric={(cell.column as ChakraColumn).isNumeric}
                 >
-                  <ConditionalCenter center={cell.column.center}>
+                  <ConditionalCenter center={(cell.column as ChakraColumn).center}>
                     {cell.render("Cell")}
                   </ConditionalCenter>
                 </Td>

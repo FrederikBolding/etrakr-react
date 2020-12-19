@@ -12,6 +12,7 @@ export interface TrackableData {
 }
 
 export interface SeasonData {
+    id: string;
     season: number;
     name: string;
     description: string;
@@ -19,6 +20,7 @@ export interface SeasonData {
 }
 
 export interface EpisodeData {
+    id: string;
     episode: number;
     season: number;
     name: string;

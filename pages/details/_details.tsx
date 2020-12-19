@@ -61,8 +61,8 @@ export const Details = ({ type }: Props) => {
           </Stack>
         </HStack>
         {data.seasons && (
-          <Box>
-            <EpisodeTable seasons={data.seasons} />
+          <Box mt="3rem !important">
+            <EpisodeTable type={type} id={id} seasons={data.seasons} />
           </Box>
         )}
       </Stack>

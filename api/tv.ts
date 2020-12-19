@@ -38,6 +38,7 @@ const transform = (show: RawDataType): TrackableData => ({
 });
 
 const transformSeason = (season: SeasonWithEpisodes): SeasonData => ({
+  id: season.id.toString(),
   season: season.season_number,
   name: season.name,
   description: season.overview,
@@ -45,6 +46,7 @@ const transformSeason = (season: SeasonWithEpisodes): SeasonData => ({
 });
 
 const transformEpisode = (episode: EpisodeWithExtras): EpisodeData => ({
+  id: episode.id.toString(),
   episode: episode.episode_number,
   season: episode.season_number,
   name: episode.name,
