@@ -1,6 +1,6 @@
 import { Button, Link as UILink } from "@chakra-ui/react";
 import { useData } from "@hooks/useData";
-import { isEpisodeWatched, useSelector } from "@store";
+import { getOnDashboard, isEpisodeWatched, useSelector } from "@store";
 import { Trackable, TrackableType } from "@types";
 import { buildRoute, formatEpisode, mapAsync } from "@utils";
 import Link from "next/link";
@@ -11,10 +11,10 @@ import { TableComponent } from "./Table";
 
 interface Props {
     type: TrackableType;
-    trackables: Trackable[];
 }
 
-const DashboardTable = ({ type, trackables, isEpisodeWatched }: Props & ConnectedProps<typeof connector>) => {
+const DashboardTable = ({ type, isEpisodeWatched }: Props & ConnectedProps<typeof connector>) => {
+    const trackables = useSelector(getOnDashboard(type))
     const { getData } = useData();
     const columns = useMemo(
         () => [
@@ -51,8 +51,9 @@ const DashboardTable = ({ type, trackables, isEpisodeWatched }: Props & Connecte
             const nextEpisode = episodes.find(e => !isEpisodeWatched(type, data.id, e.id));
             return { show: data.name, ...nextEpisode, id: t.id, episode: formatEpisode(nextEpisode.season, nextEpisode.episode) }
         }),
-        [trackables]
-    ) || [];
+        // @fixme
+        [JSON.stringify(trackables)], []
+    );
 
     return <TableComponent columns={columns} data={data} />;
 };
