@@ -1,62 +1,43 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import {
+  Box,
+  Button,
+  Center,
+  Container,
+  Divider,
+  Heading,
+  Image,
+  Text,
+} from "@chakra-ui/react";
+import Link from "next/link";
+import React from "react";
 
-export default function Home() {
+export default function Index() {
   return (
-    <div className={styles.container}>
-
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
+    <Box
+      pt={{ base: "6rem", md: "8rem" }}
+      pb={{ base: "0", md: "5rem" }}
+      textAlign="center"
+    >
+      <Container>
+        <Center>
+          <Heading m="2" as="h1" size="2xl">
+            eTrakr is your all-in-one entertainment tracking web application
+          </Heading>
+        </Center>
+        <Text mt="4" opacity="0.75">
+          The application is fast, local and privacy minded. Everything happens
+          directly in your browser. No accounts or data collection, we don't
+          want your data. An open source passion project rebuilt from the ground up with
+          React.
+        </Text>
+        <Center mt="4">
+          <Link href="/dashboard">
+            <Button size="lg" as="a" fontSize="1.3rem" h="3.5rem">
+              Get Started
+            </Button>
+          </Link>
+        </Center>
+      </Container>
+    </Box>
+  );
 }
