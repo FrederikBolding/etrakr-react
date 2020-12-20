@@ -18,6 +18,8 @@ const transform = (movie: RawDataType) => ({
   genres: movie.genres.map((g) => g.name),
   poster: `https://image.tmdb.org/t/p/w300/${movie.poster_path}`,
   runtime: movie.runtime,
+  startDate: movie.release_date,
+  endDate: movie.release_date
 });
 
 const transformSearch = (movie: MovieListResult) => ({

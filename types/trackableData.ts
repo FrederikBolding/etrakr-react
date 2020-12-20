@@ -9,6 +9,8 @@ export interface TrackableData {
     runtime?: number;
     poster: string;
     seasons?: SeasonData[];
+    startDate: string;
+    endDate: string;
 }
 
 export interface SeasonData {

@@ -7,13 +7,10 @@ import Link from "next/link";
 import React, { useMemo } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { useAsyncMemo } from "use-async-memo"
-import { TableComponent } from "./Table";
+import { TableComponent } from "../Table";
 
-interface Props {
-    type: TrackableType;
-}
-
-const DashboardTable = ({ type, isEpisodeWatched }: Props & ConnectedProps<typeof connector>) => {
+const DashboardTable = ({ isEpisodeWatched }: ConnectedProps<typeof connector>) => {
+    const type = TrackableType.Tv
     const trackables = useSelector(getOnDashboard(type))
     const { getData } = useData();
     const columns = useMemo(
