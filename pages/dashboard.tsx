@@ -5,13 +5,13 @@ import { TrackableType } from "@types";
 
 export default function Dashboard() {
   const trackables = useSelector(getOnDashboard(TrackableType.Tv))
-  return <Tabs>
+  return <Tabs m="4" variant="enclosed">
     <TabList>
-      <Tab>Shows</Tab>
+      <Tab>TV</Tab>
       <Tab>Movies</Tab>
     </TabList>
     <TabPanels>
-      <TabPanel>
+      <TabPanel p="0">
         <DashboardTable type={TrackableType.Tv} trackables={trackables} />
       </TabPanel>
     </TabPanels>
