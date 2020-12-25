@@ -1,6 +1,13 @@
 import { Button, Link as UILink } from "@chakra-ui/react";
+import { MOVIE_EPISODE_ID } from "@config";
 import { useData } from "@hooks/useData";
-import { getOnDashboard, isEpisodeWatched, useSelector } from "@store";
+import { AnyAction, bindActionCreators, Dispatch } from "@reduxjs/toolkit";
+import {
+  getOnDashboard,
+  isEpisodeWatched,
+  setWatched,
+  useSelector,
+} from "@store";
 import { Trackable, TrackableType } from "@types";
 import { buildRoute, formatEpisode, mapAsync } from "@utils";
 import Link from "next/link";
@@ -11,6 +18,7 @@ import { TableComponent } from "../Table";
 
 const MovieDashboardTable = ({
   isEpisodeWatched,
+  setWatched,
 }: ConnectedProps<typeof connector>) => {
   const type = TrackableType.Movie;
   const trackables = useSelector(getOnDashboard(type));
@@ -37,7 +45,19 @@ const MovieDashboardTable = ({
       {
         Header: "Actions",
         center: true,
-        Cell: ({}) => <Button>Watched</Button>,
+        Cell: ({
+          row: {
+            original: { id },
+          },
+        }) => (
+          <Button
+            onClick={() =>
+              setWatched({ type, id, episode: MOVIE_EPISODE_ID, watched: true })
+            }
+          >
+            Watched
+          </Button>
+        ),
       },
     ],
     []
@@ -45,10 +65,15 @@ const MovieDashboardTable = ({
 
   const data = useAsyncMemo(
     () =>
-      mapAsync(trackables, async (t) => {
-        const data = await getData(type, t.id);
-        return data;
-      }),
+      mapAsync(
+        trackables.filter(
+          (t) => !isEpisodeWatched(type, t.id, MOVIE_EPISODE_ID)
+        ),
+        async (t) => {
+          const data = await getData(type, t.id);
+          return data;
+        }
+      ),
     // @fixme
     [JSON.stringify(trackables)],
     []
@@ -62,5 +87,13 @@ const mapStateToProps = (state) => ({
     isEpisodeWatched(type, id, episode)(state),
 });
 
-const connector = connect(mapStateToProps);
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
+  bindActionCreators(
+    {
+      setWatched: setWatched,
+    },
+    dispatch
+  );
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
 export default connector(MovieDashboardTable);
