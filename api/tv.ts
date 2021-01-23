@@ -34,7 +34,7 @@ const transform = (show: RawDataType): TrackableData => ({
   genres: show.genres.map((g) => g.name),
   poster: `https://image.tmdb.org/t/p/w300/${show.poster_path}`,
   runtime: show.episode_run_time[0],
-  seasons: show.seasons.map(transformSeason),
+  seasons: show.seasons.filter(s => s.season_number > 0).map(transformSeason),
   startDate: show.first_air_date,
   endDate: show.last_air_date
 });
