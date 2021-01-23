@@ -1,4 +1,5 @@
 import { Button, Link as UILink } from "@chakra-ui/react";
+import { NO_EPISODE_ID } from "@config";
 import { useData } from "@hooks/useData";
 import { AnyAction, bindActionCreators, Dispatch } from "@reduxjs/toolkit";
 import { getOnDashboard, isEpisodeWatched, setWatched } from "@store";
@@ -52,13 +53,16 @@ const DashboardTable = ({
           row: {
             original: { id, epId: episode },
           },
-        }) => (
-          <Button
-            onClick={() => setWatched({ type, id, episode, watched: true })}
-          >
-            Watched
-          </Button>
-        ),
+        }) =>
+          episode !== NO_EPISODE_ID ? (
+            <Button
+              onClick={() => setWatched({ type, id, episode, watched: true })}
+            >
+              Watched
+            </Button>
+          ) : (
+            <>No more episodes</>
+          ),
       },
     ],
     []
@@ -78,9 +82,11 @@ const DashboardTable = ({
         return {
           show: data.name,
           ...nextEpisode,
-          epId: nextEpisode.id,
+          epId: nextEpisode ? nextEpisode.id : NO_EPISODE_ID,
           id: t.id,
-          episode: formatEpisode(nextEpisode.season, nextEpisode.episode),
+          episode:
+            nextEpisode &&
+            formatEpisode(nextEpisode.season, nextEpisode.episode),
         };
       }),
     // @fixme
