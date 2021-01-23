@@ -1,5 +1,5 @@
 import React from "react";
-import { Column, useTable } from "react-table";
+import { Column, useTable, useSortBy } from "react-table";
 import {
   Table,
   Thead,
@@ -10,9 +10,11 @@ import {
   TableCaption,
   TableCellProps,
   Center,
+  Icon,
 } from "@chakra-ui/react";
+import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
 
-type ChakraColumn = Column & TableCellProps & { center?: boolean };
+type ChakraColumn = Column & TableCellProps & { center?: boolean, isSorted?: boolean, isSortedDesc?: boolean };
 
 interface Props {
   columns: ChakraColumn[];
@@ -29,7 +31,7 @@ export const TableComponent = ({ columns, data }: Props) => {
     headerGroups,
     rows,
     prepareRow,
-  } = useTable({ columns, data });
+  } = useTable({ columns, data }, useSortBy);
 
   return (
     <Table {...getTableProps()}>
@@ -37,9 +39,14 @@ export const TableComponent = ({ columns, data }: Props) => {
         {headerGroups.map((headerGroup) => (
           <Tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => (
-              <Th {...column.getHeaderProps()}>
+              <Th {...column.getHeaderProps((column as any).getSortByToggleProps())}>
                 <ConditionalCenter center={(column as unknown as ChakraColumn).center}>
                   {column.render("Header")}
+                  {(column as unknown as ChakraColumn).isSorted
+                      ? (column as unknown as ChakraColumn).isSortedDesc
+                        ? <TriangleDownIcon ml={1} />
+                        : <TriangleUpIcon ml={1} />
+                      : ''}
                 </ConditionalCenter>
               </Th>
             ))}
