@@ -30,7 +30,9 @@ export const Details = ({ type }: Props) => {
   const [data, setData] = useState(undefined);
 
   useEffect(() => {
-    getData(type, id as string).then((d) => setData(d));
+    if (id !== undefined) {
+      getData(type, id as string).then((d) => setData(d));
+    }
   }, [id, type]);
 
   return data ? (
