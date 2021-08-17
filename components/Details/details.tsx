@@ -38,7 +38,7 @@ export const Details = ({ type }: Props) => {
   return data ? (
     <Center mt={4}>
       <Stack>
-        <Stack direction={["column", "row"]} align="center">
+        <Stack direction={{ base: "column", md: "row" }} align="center">
           <Image src={data.poster} />
           <Stack>
             <Box textAlign="center">
