@@ -4,21 +4,26 @@ import { UserDataState } from "./userData.slice";
 
 import reducer from "./reducer";
 import { persistReducer, persistStore } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+import defaultStorage from "redux-persist/lib/storage";
+import createIdbStorage from "@piotr-cz/redux-persist-idb-storage";
 
 export interface ApplicationState {
   cache: CacheState;
   userData: UserDataState;
 }
 
-export type ApplicationDispatch = ReturnType<typeof createStore>["store"]["dispatch"];
+export type ApplicationDispatch = ReturnType<
+  typeof createStore
+>["store"]["dispatch"];
 
 export const createStore = () => {
   const persistConfig = {
     key: "root",
     version: 1,
     blacklist: [],
-    storage,
+    storage: globalThis.indexedDB
+      ? createIdbStorage({ name: "eTrakr" })
+      : defaultStorage,
   };
 
   const persistedReducer = persistReducer(persistConfig, reducer);

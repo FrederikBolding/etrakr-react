@@ -786,6 +786,13 @@
   resolved "https://registry.yarnpkg.com/@next/react-refresh-utils/-/react-refresh-utils-10.0.3.tgz#276bec60eae18768f96baf8a52f668f657f50ab4"
   integrity sha512-XtzzPX2R4+MIyu1waEQUo2tiNwWVEkmObA6pboRCDTPOs4Ri8ckaIE08lN5A5opyF6GVN+IEq/J8KQrgsePsZQ==
 
+"@piotr-cz/redux-persist-idb-storage@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@piotr-cz/redux-persist-idb-storage/-/redux-persist-idb-storage-1.1.2.tgz#80de94aec5e79ce491183b386e26b3533eb4a396"
+  integrity sha512-nwNRHySeJj/GDZNd5bBd6ZdH1iW5AgGLRyxL7+/2MGr+yV50Ld9Wvtq5DCHVaBVKLZKXYglUMxtkUzfdZCFMiw==
+  dependencies:
+    idb "^3.0.0"
+
 "@popperjs/core@2.4.4":
   version "2.4.4"
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.4.4.tgz#11d5db19bd178936ec89cd84519c4de439574398"
@@ -2782,6 +2789,11 @@ icss-utils@^4.0.0, icss-utils@^4.1.1:
   integrity sha512-4aFq7wvWyMHKgxsH8QQtGpvbASCf+eM3wPRLI6R+MgAnTCZ6STYsRvttLvRWK0Nfif5piF394St3HeJDaljGPA==
   dependencies:
     postcss "^7.0.14"
+
+idb@^3.0.0:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/idb/-/idb-3.0.2.tgz#c8e9122d5ddd40f13b60ae665e4862f8b13fa384"
+  integrity sha512-+FLa/0sTXqyux0o6C+i2lOR0VoS60LU/jzUo5xjfY6+7sEEgy4Gz1O7yFBXvjd7N0NyIGWIRg8DcQSLEG+VSPw==
 
 ieee754@^1.1.13, ieee754@^1.1.4:
   version "1.2.1"

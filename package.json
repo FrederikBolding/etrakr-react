@@ -13,6 +13,7 @@
     "@chakra-ui/react": "^1.0.3",
     "@emotion/react": "^11.1.2",
     "@emotion/styled": "^11.0.0",
+    "@piotr-cz/redux-persist-idb-storage": "^1.1.2",
     "@reduxjs/toolkit": "1.4.0",
     "framer-motion": "^2.9.5",
     "lodash": "^4.17.20",
