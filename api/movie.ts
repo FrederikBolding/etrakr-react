@@ -1,9 +1,9 @@
 import { AsyncReturnType, TrackableSource, TrackableType } from "@types";
-import { MovieListResult } from "themoviedb-typescript/build/src/interfaces/generic";
+import { MovieResult } from "moviedb-promise/dist/request-types";
 import { tmdb } from "./tmdb";
 
 const getData = async (id: string) => {
-  const movie = await tmdb.movies.getById(parseInt(id, 10));
+  const movie = await tmdb.movieInfo(parseInt(id, 10));
   return { ...movie, id };
 };
 
@@ -12,7 +12,6 @@ export type RawDataType = AsyncReturnType<typeof getData>;
 const transform = (movie: RawDataType) => ({
   type: TrackableType.Movie,
   id: movie.id.toString(),
-  // @ts-expect-error This does exist, the type is wrong
   name: movie.title,
   description: movie.overview,
   genres: movie.genres.map((g) => g.name),
@@ -22,7 +21,7 @@ const transform = (movie: RawDataType) => ({
   endDate: movie.release_date
 });
 
-const transformSearch = (movie: MovieListResult) => ({
+const transformSearch = (movie: MovieResult) => ({
   type: TrackableType.Movie,
   id: movie.id.toString(),
   name: movie.title,

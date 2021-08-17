@@ -7,19 +7,14 @@ import {
   TrackableType,
 } from "@types";
 import { mapAsync } from "@utils";
-import { TVListResult } from "themoviedb-typescript/build/src/interfaces/generic";
-import {
-  EpisodeWithExtras,
-  SeasonWithEpisodes,
-  Show,
-} from "themoviedb-typescript/build/src/interfaces/tv";
+import { Episode, TvResult, TvSeasonResponse } from "moviedb-promise/dist/request-types";
 import { tmdb } from "./tmdb";
 
 const getData = async (id: string) => {
   const parsedId = parseInt(id, 10);
-  const tv = await tmdb.tv.getById(parsedId);
-  const seasons: SeasonWithEpisodes[] = await mapAsync(tv.seasons, (season) =>
-    tmdb.tvSeasons.getById(parsedId, season.season_number)
+  const tv = await tmdb.tvInfo(parsedId);
+  const seasons: TvSeasonResponse[] = await mapAsync(tv.seasons, (season) =>
+    tmdb.seasonInfo({ id: parsedId, season_number: season.season_number })
   );
   return { ...tv, id, seasons };
 };
@@ -34,12 +29,12 @@ const transform = (show: RawDataType): TrackableData => ({
   genres: show.genres.map((g) => g.name),
   poster: `https://image.tmdb.org/t/p/w300/${show.poster_path}`,
   runtime: show.episode_run_time[0],
-  seasons: show.seasons.filter(s => s.season_number > 0).map(transformSeason),
+  seasons: show.seasons.filter((s) => s.season_number > 0).map(transformSeason),
   startDate: show.first_air_date,
-  endDate: show.last_air_date
+  endDate: show.last_air_date,
 });
 
-const transformSeason = (season: SeasonWithEpisodes): SeasonData => ({
+const transformSeason = (season: TvSeasonResponse): SeasonData => ({
   id: season.id.toString(),
   season: season.season_number,
   name: season.name,
@@ -47,7 +42,7 @@ const transformSeason = (season: SeasonWithEpisodes): SeasonData => ({
   episodes: season.episodes.map(transformEpisode),
 });
 
-const transformEpisode = (episode: EpisodeWithExtras): EpisodeData => ({
+const transformEpisode = (episode: Episode): EpisodeData => ({
   id: episode.id.toString(),
   episode: episode.episode_number,
   season: episode.season_number,
@@ -56,7 +51,7 @@ const transformEpisode = (episode: EpisodeWithExtras): EpisodeData => ({
   airDate: episode.air_date,
 });
 
-const transformSearch = (show: TVListResult) => ({
+const transformSearch = (show: TvResult) => ({
   type: TrackableType.Tv,
   id: show.id.toString(),
   name: show.name,

@@ -15,7 +15,7 @@ export const getTrackableSource = (type: TrackableType) => {
 };
 
 export const search = async (query: string) => {
-  const results = await tmdb.search.getMulti({ query });
+  const results = await tmdb.searchMulti({ query });
   return (
     results.results
       // @ts-expect-error media_type is present on these types
