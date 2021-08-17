@@ -48,7 +48,7 @@ export const SearchBar = (props) => {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <InputGroup {...props}>
+          <InputGroup {...props} mt={0}>
             <InputLeftElement
               pointerEvents="none"
               children={<SearchIcon color="gray.300" />}

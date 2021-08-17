@@ -36,7 +36,7 @@ export const Details = ({ type }: Props) => {
   return data ? (
     <Center mt={4}>
       <Stack>
-        <HStack>
+        <Stack direction={["column", "row"]} align="center">
           <Image src={data.poster} />
           <Stack>
             <Box textAlign="center">
@@ -44,10 +44,14 @@ export const Details = ({ type }: Props) => {
               <Text>{data.genres.join(", ")}</Text>
               <Text>{data.runtime || "?"} min</Text>
             </Box>
-            <Box textAlign="center">
-              <DashboardToggle type={type} id={id} mr={1} />
+            <Stack
+              direction={["column", "row"]}
+              justifyContent="center"
+              textAlign="center"
+            >
+              <DashboardToggle type={type} id={id} />
               <FavoriteToggle type={type} id={id} />
-            </Box>
+            </Stack>
             <Box>
               <Heading textAlign="center" as="h2" size="md">
                 Overview
@@ -59,7 +63,7 @@ export const Details = ({ type }: Props) => {
               </Container>
             </Box>
           </Stack>
-        </HStack>
+        </Stack>
         {data.seasons && (
           <Box mt="3rem !important">
             <EpisodeTable type={type} id={id} seasons={data.seasons} />
