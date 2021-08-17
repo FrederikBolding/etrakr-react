@@ -1,6 +1,6 @@
 import { getTrackableSource } from "@api/api";
 import { useDispatch, useSelector } from "@store";
-import { create } from "@store/cache";
+import { create } from "@store/cache.slice";
 import { TrackableType } from "@types";
 
 export function useData() {
