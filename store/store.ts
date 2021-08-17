@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { CacheState } from "./cache";
+import { CacheState } from "./cache.slice";
 import { UserDataState } from "./userData.slice";
 
 import reducer from "./reducer";
