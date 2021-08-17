@@ -1,5 +1,5 @@
 import { StarIcon } from "@chakra-ui/icons";
-import { Box, Button, ButtonGroup, Center, Checkbox, IconButton } from "@chakra-ui/react";
+import { Box, Button, ButtonGroup, Center, Checkbox, IconButton, TableContainerProps } from "@chakra-ui/react";
 import { SeasonData, TrackableType } from "@types";
 import { formatEpisode } from "@utils";
 import React, { useMemo } from "react";
@@ -12,7 +12,7 @@ interface Props {
   seasons: SeasonData[];
 }
 
-export const EpisodeTable = ({ type, id, seasons }: Props) => {
+export const EpisodeTable = ({ type, id, seasons, ...props }: Props & TableContainerProps) => {
   const columns = useMemo(
     () => [
       {
@@ -41,5 +41,5 @@ export const EpisodeTable = ({ type, id, seasons }: Props) => {
     [seasons]
   );
 
-  return <TableComponent columns={columns} data={data} />;
+  return <TableComponent columns={columns} data={data} {...props} />;
 };

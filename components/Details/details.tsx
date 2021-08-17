@@ -67,9 +67,13 @@ export const Details = ({ type }: Props) => {
           </Stack>
         </Stack>
         {data.seasons && (
-          <Box mt="3rem !important">
-            <EpisodeTable type={type} id={id} seasons={data.seasons} />
-          </Box>
+          <EpisodeTable
+            type={type}
+            id={id}
+            seasons={data.seasons}
+            mt="3rem !important"
+            maxW="100vw"
+          />
         )}
       </Stack>
     </Center>
