@@ -40,7 +40,6 @@ export const Header = () => {
         flexGrow={1}
       >
         <MenuItems href="/dashboard">Dashboard</MenuItems>
-        <MenuItems href="/stats">Stats</MenuItems>
         <Box
           display={{ base: "block", md: "flex" }}
           position={{ base: "relative", md: "absolute" }}
